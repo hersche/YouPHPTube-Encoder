@@ -54,7 +54,7 @@ class Login {
                 $s = new Streamer($object->streamers_id);
                 $object->isAdmin = $s->getIsAdmin();
                 if (!$encodedPass || $encodedPass === 'false') {
-                    $pass = md5($pass);
+                    $pass = "{sha512}".hash("sha512", $pass);
                 }
                 // update pass
                 $s->setPass($pass);

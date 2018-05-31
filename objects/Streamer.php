@@ -1,10 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/Configuration.php';
-
 class Streamer extends ObjectYPT {
 
-    protected $id, $siteURL, $user, $pass, $priority, $isAdmin, $created, $modified;
+    protected $id, $siteURL, $user, $pass, $priority, $isAdmin, $created, $modified; 
 
     static function getSearchFieldsNames() {
         return array('siteURL');
@@ -47,7 +46,8 @@ class Streamer extends ObjectYPT {
 
     static function createIfNotExists($user, $pass, $siteURL, $encodedPass = false) {
         if (!$encodedPass || $encodedPass === 'false') {
-            $pass = md5($pass);
+            //$pass = md5($pass);
+            $pass = "{sha512}".hash("sha512", $pass);
         }
         if (substr($siteURL, -1) !== '/') {
             $siteURL .= "/";
